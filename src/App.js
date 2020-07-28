@@ -1,25 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+
+const element1 = (
+  <h1 className="title">
+    <a href="https://google.com">google</a>
+  </h1>
+);
 
 function App() {
+  const style = { color: "blue" };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <p style={style}>
+      {element1}
+      <a href="https://yandex.by">yandex</a>
+    </p>
   );
 }
 
