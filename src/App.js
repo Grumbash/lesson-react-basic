@@ -1,39 +1,65 @@
 import React from "react";
-import Site from "./Site";
+import axios from "axios";
+
+import User from "./components/User";
+
+const api = "https://5f22f8cf0e9f660016d88b17.mockapi.io/";
+const usersAPI = `${api}users`;
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      counter: 0,
-      name: "Gleb",
-      age: 23,
+      users: [],
+      warning: "",
     };
   }
 
-  handleClick = () => {
-    this.setState({ counter: this.state.counter + 1 });
+  componentDidMount() {
+    axios.get(usersAPI).then(({ data }) => {
+      this.setState({ users: data });
+    });
+  }
+
+  componentDidUpdate() {
+    if (this.state.users.length < 6 && this.state.users.length !== 0) {
+      this.setState({ warning: "You have deleted a lot of users!!!" });
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(this.state, nextState);
+    if (this.state.users.length === nextState.users.length) {
+      return false;
+    }
+    return true;
+  }
+
+  handleClick = (e) => {
+    const { users } = this.state;
+    const newUsers = [...users];
+    newUsers.pop();
+    this.setState({ users: newUsers });
   };
 
   render() {
-    console.log(this.state);
+    const { users, warning } = this.state;
     return (
       <>
-        <Site number={this.state.counter}></Site>
-        <button onClick={this.handleClick}>counter</button>
+        <button onClick={this.handleClick}>Delete last user</button>
+        <div>Users count: {users.length}</div>
+        {!!warning && <p className="title">{warning}</p>}
+
+        <ul>
+          {users.length > 0
+            ? users.map((user) => (
+                <User key={user.id} name={user.name} avatar={user.avatar} />
+              ))
+            : "no users found"}
+        </ul>
       </>
     );
   }
 }
-
-// function App(props) {
-//   return (
-//     <>
-//       <Site name="Google"></Site>
-//       <Site name="Yandex"></Site>
-//       <Site name="VK"></Site>
-//     </>
-//   );
-// }
 
 export default App;
