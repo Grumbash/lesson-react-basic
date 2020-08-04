@@ -8,6 +8,8 @@ import {
 import Google from "./components/Google";
 import HTML from "./components/HTML";
 import WebDevelopers from "./components/WebDevelopers";
+import NewUser from "./components/User/NewUser"
+import SingleUser from "./components/User/SingleUser"
 
 export default class App extends Component {
 
@@ -43,6 +45,9 @@ export default class App extends Component {
               <div>404 Not found</div>
             </Route>
           </Switch>
+          <NewUser userName="Gleb"></NewUser>
+          <NewUser userName="Gleb"></NewUser>
+
         </div>
       </Router>
     )
