@@ -1,55 +1,31 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import Google from "./components/Google";
-import HTML from "./components/HTML";
-import WebDevelopers from "./components/WebDevelopers";
-import NewUser from "./components/User/NewUser"
-import SingleUser from "./components/User/SingleUser"
+
+import Plus from "./components/Counter/Plus"
+import Minus from "./components/Counter/Minus"
+import Count from "./components/Counter/Count"
 
 export default class App extends Component {
 
+  state ={
+    count: 0
+  }
+
+  handleDec = () => {
+    this.setState({count: this.state.count - 1});
+  }
+
+  handleInc = () => {
+    this.setState({count: this.state.count + 1});
+  }
+
   render() {
     return (
-      <Router>
         <div>
-          <nav>
-              <ul>
-                <li>
-                  <Link to="/">Web Developers</Link>
-                </li>
-                <li>
-                  <Link to="/html">HTML</Link>
-                </li>
-                <li>
-                  <Link to="/google">Google</Link>
-                </li>
-              </ul>
-          </nav>
-          <Switch>
-        
-            <Route path="/google">
-              <Google />
-            </Route>
-            <Route path="/html">
-              <HTML />
-            </Route>
-            <Route path="/" exact>
-              <WebDevelopers />
-            </Route>
-              <Route path="*">
-              <div>404 Not found</div>
-            </Route>
-          </Switch>
-          <NewUser userName="Gleb"></NewUser>
-          <NewUser userName="Gleb"></NewUser>
-
+          <Minus handleClick={this.handleDec} count={this.state.count}></Minus>
+          <Count count={this.state.count}></Count>
+          <Plus handleClick={this.handleInc} count={this.state.count}></Plus>
         </div>
-      </Router>
+    
     )
   }
 }
