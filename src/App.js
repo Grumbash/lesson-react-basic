@@ -1,25 +1,50 @@
-import React, { Component } from 'react'
-import Button from "./components/Button"
-import Counter from "./components/Counter"
-import Page from "./components/Page";
+import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Google from "./components/Google";
+import HTML from "./components/HTML";
+import WebDevelopers from "./components/WebDevelopers";
 
 export default class App extends Component {
-  state = {
-    count: 0
-  }
-
-  handleClick = () => {
-    this.setState({count: this.state.count + 1})
-  }
 
   render() {
-   
     return (
-      <div>
-        <Counter count={this.state.count}></Counter>
-        <Button handleClick={this.handleClick}></Button>
+      <Router>
+        <div>
+          <nav>
+              <ul>
+                <li>
+                  <Link to="/">Web Developers</Link>
+                </li>
+                <li>
+                  <Link to="/html">HTML</Link>
+                </li>
+                <li>
+                  <Link to="/google">Google</Link>
+                </li>
+              </ul>
+          </nav>
+          <Switch>
         
-      </div>
+            <Route path="/google">
+              <Google />
+            </Route>
+            <Route path="/html">
+              <HTML />
+            </Route>
+            <Route path="/" exact>
+              <WebDevelopers />
+            </Route>
+              <Route path="*">
+              <div>404 Not found</div>
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     )
   }
 }
